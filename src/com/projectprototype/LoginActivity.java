@@ -132,9 +132,10 @@ public class LoginActivity extends Activity{
 						// signed in user can be handled in the listener.
 						if (!task.isSuccessful()) {
 							//Log.w(TAG, "signInWithEmail:failed", task.getException());
-							Toast.makeText(LoginActivity.this, "Log-in Failed!", Toast.LENGTH_SHORT).show();
+							Toast.makeText(LoginActivity.this, "Log in Failed!", Toast.LENGTH_SHORT).show();
 						}else {
 							progressDialog.cancel();
+							Toast.makeText(LoginActivity.this, "Successfully logged in!", Toast.LENGTH_SHORT).show();
 						}
 						// ...
 					}
