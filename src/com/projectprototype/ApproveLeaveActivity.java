@@ -134,11 +134,11 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
 
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Approve Leave");
-        alert.setMessage("Are you sure you want to approve " + tempname[1].toLowerCase() + "'s filed leave?");
+        alert.setTitle("Actions");
+        alert.setMessage("Do you want to approve " + tempname[1].toLowerCase() + "'s filed leave?");
 
         final String finalChecker = checker;
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton("Approve", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 ref.child("dates")
                         .orderByChild("checker")
@@ -149,7 +149,6 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
                                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                                     String clubkey = childSnapshot.getKey();
                                     ref.child("dates").child(clubkey).child("status").setValue("Approved");
-
                                 }
 
                                 //TODO: update database
@@ -171,6 +170,83 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
 
             }
         });
+
+        alert.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                ref.child("dates")
+                        .orderByChild("checker")
+                        .equalTo(finalChecker)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                                    String clubkey = childSnapshot.getKey();
+                                    ref.child("dates").child(clubkey).setValue(null);
+                                }
+
+                                //TODO: update database
+                                String approvedEntry = listForApprovalLeave.get(position);
+                                listForApprovalLeave.remove(approvedEntry);
+
+                                // refresh list
+                                seeForApproval();
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                Toast.makeText(ApproveLeaveActivity.this, "Successfully deleted leave!", Toast.LENGTH_SHORT).show();
+//                finish();
+//                startActivity(getIntent());
+
+            }
+        });
+
+/*
+        alert.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                ref.child("dates").orderByChild("checker");
+                ref.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    }
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    }
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                            String clubkey = childSnapshot.getKey();
+                            ref.child("dates").child(clubkey).child("status").removeValue();
+                        }
+
+                        //TODO: update database
+                        String approvedEntry = listForApprovalLeave.get(position);
+                        listForApprovalLeave.remove(approvedEntry);
+
+                        // refresh list
+                        seeForApproval();
+                    }
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+
+                });
+
+                Toast.makeText(ApproveLeaveActivity.this, "Successfully deleted leave!", Toast.LENGTH_SHORT).show();
+//                finish();
+//                startActivity(getIntent());
+
+            }
+        });
+       */
+
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //So sth here when "cancel" clicked.
