@@ -1,7 +1,9 @@
 package com.projectprototype;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -51,6 +53,7 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
 	Button cancelButton;
 	EditText name;
 	EditText date;
+	EditText date2;
 	EditText backup;
 	EditText status;
 	String checker;
@@ -66,9 +69,19 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
 	FirebaseDatabase database = FirebaseDatabase.getInstance();
 	Calendar myCalendar = Calendar.getInstance();
 	private FirebaseAuth mAuth;
+
+	//SimpleDateFormat sdf1 = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy",
+	//		Locale.ENGLISH);
+	String myFormat = "MM/dd/yyyy"; //In which you need put here
+	SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+	SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yyyy");
+	//DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	Date today = new Date();
+	Date dateFirst = new Date();
+	Date dateSecond = new Date();
+
 	
-	
-	DatePickerDialog.OnDateSetListener date2 = new DatePickerDialog.OnDateSetListener() {
+	DatePickerDialog.OnDateSetListener datepicker1 = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -80,6 +93,20 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
 		}
 		
 		
+	};
+
+	DatePickerDialog.OnDateSetListener datepicker2 = new DatePickerDialog.OnDateSetListener() {
+
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			// TODO Auto-generated method stub
+			myCalendar.set(Calendar.YEAR, year);
+			myCalendar.set(Calendar.MONTH, monthOfYear);
+			myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+			updateLabel();
+		}
+
+
 	};
 
 
@@ -107,6 +134,7 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
 
 		name = (EditText) findViewById(R.id.leaveName);
 		date = (EditText) findViewById(R.id.leaveDate);
+		date2 = (EditText) findViewById(R.id.leaveDate2);
 		type = (Spinner) findViewById(R.id.leaveType);
 		backup = (EditText) findViewById(R.id.leaveBackUp);
 		status = (EditText) findViewById(R.id.leaveStatus);
@@ -172,11 +200,22 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
 	        @Override
 	        public void onClick(View v) {
 	            // TODO Auto-generated method stub
-	            new DatePickerDialog(LeaveActivity.this, date2, myCalendar
+	            new DatePickerDialog(LeaveActivity.this, datepicker1, myCalendar
 	                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
 	                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
 	        }
 	    });
+
+		date2.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				new DatePickerDialog(LeaveActivity.this, datepicker2, myCalendar
+						.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+						myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+			}
+		});
 		
 		submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,27 +237,39 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
 
 	
 	private void updateLabel() {
-
-	    String myFormat = "MM/dd/yyyy"; //In which you need put here
-	    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
-	    date.setText(sdf.format(myCalendar.getTime()));
+		date.setText(sdf.format(myCalendar.getTime()));
+		date2.setText(sdf.format(myCalendar.getTime()));
 	    }
 	
 	
 	public void submitLeave(View view) {
+		try{
+			String firstDate = date.getText().toString();
+			String secondDate = date2.getText().toString();
 
+			dateFirst = sdf2.parse(firstDate);
+			//Should be negative
+			int date1Result = today.compareTo(dateFirst);
+			dateSecond = sdf2.parse(secondDate);
+			//Should be negative
+			int date2Result = dateFirst.compareTo(dateSecond);
 
 		if (name.getText().toString().length() > 0 && date.getText().toString().length() > 0 && backup.getText().toString().length() > 0) {
-			boolean logStatus = createLogFB(name.getText().toString(),date.getText().toString(),item,backup.getText().toString(),status.getText().toString(),checker);
-			//Intent back = new Intent(this, MainActivity.class);
-			if (logStatus){
-				Toast.makeText(getApplicationContext(), "Added Leave!", Toast.LENGTH_LONG).show();
 
-				finish();
-			}
-			else {
-				Toast.makeText(getApplicationContext(), "Failed, please try again.", Toast.LENGTH_LONG).show();
+
+			if ((dateFirst.after(today) || dateFirst.equals(today)) && (dateSecond.after(dateFirst) || dateSecond.equals(dateFirst))) {
+
+				boolean logStatus = createLogFB(name.getText().toString(), date.getText().toString(), item, backup.getText().toString(), status.getText().toString(), checker);
+				//Intent back = new Intent(this, MainActivity.class);
+				if (logStatus) {
+					Toast.makeText(getApplicationContext(), "Added Leave!", Toast.LENGTH_LONG).show();
+
+					finish();
+				} else {
+					Toast.makeText(getApplicationContext(), "Failed, please try again.", Toast.LENGTH_LONG).show();
+				}
+			}else {
+				Toast.makeText(getApplicationContext(), "Invalid date. Choose date today or later.", Toast.LENGTH_LONG).show();
 			}
 		}
 
@@ -229,6 +280,9 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
 		else if (date.getText().toString().length() == 0) {
 			Toast.makeText(getApplicationContext(), "Date is required.", Toast.LENGTH_LONG).show();
 
+
+		}
+		}catch(Exception er){
 
 		}
 

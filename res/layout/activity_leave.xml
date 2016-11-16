@@ -80,6 +80,16 @@
             android:inputType="date"
             android:hint="MM / DD / YYYY"
             android:focusableInTouchMode="false" />
+
+        <EditText
+            android:id="@+id/leaveDate2"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.75"
+            android:ems="10"
+            android:inputType="date"
+            android:hint="MM / DD / YYYY"
+            android:focusableInTouchMode="false" />
     </LinearLayout>
 
     <LinearLayout

@@ -122,6 +122,24 @@ public class LoginActivity extends Activity{
             progressDialog.setMessage("Authenticating...");
             progressDialog.show();
 
+		mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+					@Override
+					public void onComplete(@NonNull Task<AuthResult> task) {
+						//Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+
+						// If sign in fails, display a message to the user. If sign in succeeds
+						// the auth state listener will be notified and logic to handle the
+						// signed in user can be handled in the listener.
+						if (!task.isSuccessful()) {
+							//Log.w(TAG, "signInWithEmail:failed", task.getException());
+							Toast.makeText(LoginActivity.this, "Log-in Failed!", Toast.LENGTH_SHORT).show();
+						}else {
+							progressDialog.cancel();
+						}
+						// ...
+					}
+				});
+
 		//Firebase.setAndroidContext(this);
 		//Firebase ref = new Firebase("https://goschedule-12ee6.firebaseio.com/");
 		
@@ -140,23 +158,7 @@ public class LoginActivity extends Activity{
 		    }
 		});			**/
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
 
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            //Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            Toast.makeText(LoginActivity.this, "Log-in Failed!", Toast.LENGTH_SHORT).show();
-                        }
-                        progressDialog.cancel();
-                        // ...
-                    }
-                });
 
 	}
 
