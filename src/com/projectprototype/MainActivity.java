@@ -391,9 +391,12 @@ public class MainActivity extends AppCompatActivity {
 
 		Intent mainIntent = new Intent(MainActivity.this, MyLeavesActivity.class);
 		MainActivity.this.startActivity(mainIntent);
+		}
 
+		if (id == R.id.reports) {
 
-
+			Intent mainIntent = new Intent(MainActivity.this, NewReports.class);
+			MainActivity.this.startActivity(mainIntent);
 		}
 
 		if (id == R.id.search) {
@@ -431,7 +434,6 @@ public class MainActivity extends AppCompatActivity {
 					progressDialog.cancel();
 				}
 			});
-
 
 		}
 

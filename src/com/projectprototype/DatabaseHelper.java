@@ -129,6 +129,39 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		return output;
 	}
 
+	public List<String> getAllEID(){
+		List<String> eid = new ArrayList<String>();
+
+		Integer id;
+		String name;
+		String type;
+		String backup;
+		String status;
+		String eid_query = "SELECT * FROM FiledLeaves";
+		cursor = db.rawQuery(eid_query, null);
+
+		// parse all results
+		if (cursor.moveToFirst()) {
+			do {
+				name = cursor.getString(1).toUpperCase();
+
+				// Add book to books
+				//Log.i("myApp", Integer.toString(id));
+				//Log.i("myApp", name + " ( " + type + " ) ");
+				eid.add(name);
+				//Log.i("myApp", cursor.getString(2));
+				//Log.i("myapp", output.get(id-1));
+			} while (cursor.moveToNext());
+		}
+
+		cursor.close();
+
+		return eid;
+
+
+	}
+
+
 	public List<String> getAllInName(String name) {
 		List<String> output = new ArrayList<String>();
 		List<String> outputs = new ArrayList<String>();

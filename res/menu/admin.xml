@@ -28,7 +28,11 @@
         android:title="@string/leaves"
         app:showAsAction="never"/>
 
-
+    <item
+        android:id="@+id/reports"
+        android:orderInCategory="100"
+        android:title="@string/reports"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/reset"
