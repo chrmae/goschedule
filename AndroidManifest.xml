@@ -41,7 +41,8 @@
             android:label="@string/title_activity_view_leave" />
         <activity android:name=".SearchEIDActivity" />
         <activity android:name=".MyLeavesActivity" />
-        <activity android:name=".EditLeaveActivity" />
+        <activity
+            android:name=".EditLeaveActivity"/>
         <activity android:name=".ApproveLeaveActivity"></activity>
     </application>
 
