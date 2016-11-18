@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/eid_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="15sp"
+        android:text="sample eid"
+        android:paddingTop="5dp"/>
+
+    <TextView
+        android:id="@+id/vl_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="15sp"
+        android:text="vl"
+        android:paddingTop="5dp"/>
+
+    <TextView
+        android:id="@+id/sl_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="sl"
+        android:textSize="15sp"
+        android:paddingTop="5dp"/>
+
+    <TextView
+        android:id="@+id/el_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="el"
+        android:textSize="15sp"
+        android:paddingTop="5dp"/>
+
+
+</LinearLayout>

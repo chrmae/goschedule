@@ -20,6 +20,9 @@
     <string name="right">►</string>
     <string name="lbl_forgot_password">Reset password?</string>
     <string name="myleaves">My Leaves</string>
+    <string name="reports">Reports</string>
+    <string name="year_prompt">Select Year</string>
+    <string name="month_prompt">Select Month</string>
 
     <string-array name="leave_arrays">
         <item>Elective Holiday</item>
@@ -30,6 +33,21 @@
         <item>Sick Leave</item>
         <item>Training</item>
         <item>Vacation Leave</item>
+    </string-array>
+
+    <string-array name="select_month">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
     </string-array>
 
     <string-array name="tower_arrays">
