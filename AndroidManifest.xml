@@ -43,7 +43,6 @@
         <activity android:name=".MyLeavesActivity" />
         <activity android:name=".EditLeaveActivity" />
         <activity android:name=".ApproveLeaveActivity" />
-        <activity android:name=".ReportsActivity" />
         <activity android:name=".NewReports"></activity>
     </application>
 

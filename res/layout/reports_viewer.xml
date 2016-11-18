@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:textSize="15sp"
-        android:text="sample eid"
+
         android:paddingTop="5dp"/>
 
     <TextView
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:textSize="15sp"
-        android:text="vl"
+
         android:paddingTop="5dp"/>
 
     <TextView
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="sl"
+
         android:textSize="15sp"
         android:paddingTop="5dp"/>
 
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="el"
+
         android:textSize="15sp"
         android:paddingTop="5dp"/>
 

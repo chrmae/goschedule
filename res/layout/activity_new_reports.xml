@@ -4,14 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.projectprototype.NewReports"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <RelativeLayout
         android:id="@+id/reports_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="#0097a7"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_weight="0.1">
 
         <TextView
             android:id="@+id/reports_myleavestext"
@@ -31,51 +33,54 @@
 
     <LinearLayout
         android:id="@+id/reports_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:orientation="horizontal"
+        android:layout_weight="0.1">
 
         <Spinner
             android:id="@+id/reports_year"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.75"
+            android:layout_weight="0.5"
             android:prompt="@string/year_prompt" />
 
         <Spinner
             android:id="@+id/reports_month"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.75"
+            android:layout_weight="0.5"
             android:entries="@array/select_month"
             android:prompt="@string/month_prompt" />
 
-    </LinearLayout>
-
+        </LinearLayout>
 
     <LinearLayout
         android:id="@+id/reports_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:orientation="horizontal"
+        android:layout_weight="0.1">
         <TextView
             android:id="@+id/header_eid"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight=".55"
             android:gravity="center_horizontal"
             android:padding="5dp"
             android:paddingLeft="5dp"
+
             android:text="EID"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/header_vl"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight=".15"
             android:gravity="center_horizontal"
             android:padding="5dp"
             android:paddingLeft="5dp"
@@ -85,8 +90,9 @@
 
         <TextView
             android:id="@+id/header_sl"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight=".15"
             android:gravity="center_horizontal"
             android:padding="5dp"
             android:paddingLeft="5dp"
@@ -96,8 +102,9 @@
 
         <TextView
             android:id="@+id/header_el"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight=".15"
             android:gravity="center_horizontal"
             android:padding="5dp"
             android:paddingLeft="5dp"
@@ -108,22 +115,54 @@
 
     </LinearLayout>
 
-
-
-    <ListView
-        android:id="@+id/listReport"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-    </ListView>
-
     <LinearLayout
-        android:id="@+id/reports_linearLayout7"
+        android:id="@+id/reports_listlayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_weight="0.6">
 
+        <ListView
+            android:id="@+id/listReportEID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".55">
+        </ListView>
+
+        <ListView
+            android:id="@+id/listReportVL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".15"
+            android:gravity="center_horizontal">
+        </ListView>
+
+        <ListView
+            android:id="@+id/listReportSL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".15"
+            android:gravity="center_horizontal">
+        </ListView>
+
+        <ListView
+            android:id="@+id/listReportEL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".15"
+            android:gravity="center_horizontal">
+        </ListView>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/reports_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0097a7"
+        android:orientation="horizontal"
+        android:layout_weight="0.1">
 
         <Button
             android:id="@+id/reports_backhome"
@@ -137,9 +176,6 @@
             android:textColor="#ffffff"
             android:onClick="backHome"
             android:text="BACK"/>
-
-
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

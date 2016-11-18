@@ -27,6 +27,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	private static final String leave_CHECKER = "checker";
 	private static final String leave_MONTHYEAR = "MMYYYY";
 
+
+	private static final String table_SL = "SickLeaves";
+	private static final String leave_vl_EID = "vl_name";
+	private static final String leave_vl_total = "vl_total";
+
+
 	SQLiteDatabase db;
 	Cursor cursor;
 
@@ -41,6 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 		String CREATE_BOOK_TABLE = "CREATE TABLE FiledLeaves ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "name TEXT, " + "date TEXT, " + "type TEXT, " + "backup TEXT, " + "status TEXT, " + "checker TEXT, " + "MMYYYY TEXT )";
+
 		db.execSQL(CREATE_BOOK_TABLE);
 	}
 
@@ -98,10 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		String status;
 		
 		date = date.replace("/","-");
-		
-		//Log.i("myApp", date);
-		// select book query
-		//String query = "SELECT  * FROM " + table_LEAVES;
+
 		String query = "SELECT  * FROM FiledLeaves WHERE date = '" + date + "'";
 
 		// get reference of the BookDB database
@@ -115,13 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 				type = cursor.getString(3);
 				backup = cursor.getString(4);
 				backup = backup.replace("-",".");
-
-				// Add book to books
-				//Log.i("myApp", Integer.toString(id));
-				//Log.i("myApp", name + " ( " + type + " ) ");
 				output.add(name + "\nType: " + type + "\nBack up: " + backup);
-				//Log.i("myApp", cursor.getString(2));
-				//Log.i("myapp", output.get(id-1));
 			} while (cursor.moveToNext());
 		}
 
@@ -129,37 +127,97 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		return output;
 	}
 
-	public List<String> getAllEID(){
+	public List<String> getAllEID(String year, String month){
 		List<String> eid = new ArrayList<String>();
 
-		Integer id;
 		String name;
-		String type;
-		String backup;
-		String status;
-		String eid_query = "SELECT * FROM FiledLeaves";
-		cursor = db.rawQuery(eid_query, null);
 
+		String eid_query = "SELECT DISTINCT name FROM FiledLeaves WHERE date LIKE '%" + year +"' AND date LIKE '"+ month +"%' ORDER BY name ASC";
+		cursor = db.rawQuery(eid_query, null);
 		// parse all results
 		if (cursor.moveToFirst()) {
 			do {
-				name = cursor.getString(1).toUpperCase();
-
-				// Add book to books
-				//Log.i("myApp", Integer.toString(id));
-				//Log.i("myApp", name + " ( " + type + " ) ");
+				name = cursor.getString(0);
 				eid.add(name);
-				//Log.i("myApp", cursor.getString(2));
-				//Log.i("myapp", output.get(id-1));
 			} while (cursor.moveToNext());
 		}
-
 		cursor.close();
-
 		return eid;
-
-
 	}
+
+	public List<String> getVLcount(String year, String month){
+		List<String> vl = new ArrayList<String>();
+
+		String vlcount;
+
+		//String CREATE_SL_TABLE= "CREATE TABLE SickLeaves AS (SELECT name, COUNT(type) FROM FiledLeaves WHERE type='Vacation Leave' AND date LIKE '%" + year +"' AND date LIKE '"+ month +"%' GROUP BY name ORDER BY name ASC)";
+		String CREATE_SL_TABLE = "CREATE TABLE SickLeaves ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "vl_name TEXT, " + "vl_total TEXT )";
+		String INSERT_SL_VALUES= "INSERT INTO SickLeaves (vl_name, vl_total) SELECT name, COUNT(type) FROM FiledLeaves WHERE type='Vacation Leave'";
+		db.execSQL(CREATE_SL_TABLE);
+		db.execSQL(INSERT_SL_VALUES);
+		String vl_query = "SELECT name FROM FiledLeaves LEFT JOIN SickLeaves on FiledLeaves.name=SickLeaves.vl_name WHERE type='Vacation Leave'";
+
+
+		//String vl_query = "SELECT name, COUNT(type) FROM FiledLeaves WHERE type='Vacation Leave' AND date LIKE '%" + year +"' AND date LIKE '"+ month +"%' GROUP BY name ORDER BY name ASC";
+		//String vl_query = "SELECT name FROM FiledLeaves LEFT JOIN FiledLeaves on FiledLeaves.name=FiledLeaves.name WHERE type='Vacation Leave'";
+		cursor = db.rawQuery(vl_query, null);
+
+		if (cursor.moveToFirst()) {
+			do {
+				vlcount = cursor.getString(1).toUpperCase();
+				if(vlcount.equals(null)){
+					vlcount = "0";
+				}
+
+				vl.add(vlcount);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		return vl;
+	}
+
+	public List<String> getSLcount(String year, String month){
+		List<String> sl = new ArrayList<String>();
+
+		String slcount;
+		String sl_query = "SELECT name, COUNT(type) FROM FiledLeaves WHERE type='Sick Leave' AND date LIKE '%" + year +"' AND date LIKE '"+ month +"%' GROUP BY name ORDER BY name ASC ";
+
+		cursor = db.rawQuery(sl_query, null);
+
+		if (cursor.moveToFirst()) {
+			do {
+				slcount = cursor.getString(1).toUpperCase();
+				if(slcount.equals(null)){
+					slcount = "0";
+				}
+				sl.add(slcount);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		return sl;
+	}
+
+
+	public List<String> getELcount(String year, String month){
+		List<String> el = new ArrayList<String>();
+
+		String elcount;
+		String el_query = "SELECT name, COUNT(type) FROM FiledLeaves WHERE type='Elective Holiday' AND date LIKE '%" + year +"' AND date LIKE '"+ month +"%' GROUP BY name ORDER BY name ASC ";
+		cursor = db.rawQuery(el_query, null);
+
+		if (cursor.moveToFirst()) {
+			do {
+				elcount = cursor.getString(1).toUpperCase();
+				if(elcount.equals(null)){
+					elcount = "0";
+				}
+				el.add(elcount);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		return el;
+	}
+
 
 
 	public List<String> getAllInName(String name) {
