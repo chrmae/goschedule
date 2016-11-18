@@ -96,7 +96,7 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
     }
 
     private void seeForApproval() {
-        ImageView approvedLeave = (ImageView) findViewById(R.id.editleave);
+        //ImageView approvedLeave = (ImageView) findViewById(R.id.editleave);
         //Log.i("Adap", listLeave.get(0));
 
         //lv = (ListView) findViewById(android.R.id.list);
@@ -106,7 +106,7 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
     }
 
     private void seeApproved() {
-        ImageView approvedLeave = (ImageView) findViewById(R.id.editleave);
+        //ImageView approvedLeave = (ImageView) findViewById(R.id.editleave);
         //Log.i("Adap", listLeave.get(0));
 
         //lv = (ListView) findViewById(android.R.id.list);
@@ -138,6 +138,7 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
         alert.setMessage("Do you want to approve " + tempname[1].toLowerCase() + "'s filed leave?");
 
         final String finalChecker = checker;
+
         alert.setPositiveButton("Approve", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 ref.child("dates")

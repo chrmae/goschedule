@@ -41,9 +41,15 @@
             android:label="@string/title_activity_view_leave" />
         <activity android:name=".SearchEIDActivity" />
         <activity android:name=".MyLeavesActivity" />
+<<<<<<< HEAD
+        <activity
+            android:name=".EditLeaveActivity"/>
+        <activity android:name=".ApproveLeaveActivity"></activity>
+=======
         <activity android:name=".EditLeaveActivity" />
         <activity android:name=".ApproveLeaveActivity" />
         <activity android:name=".NewReports"></activity>
+>>>>>>> e0bbb72be8c86c513872cf59591d2ff4b7d51175
     </application>
 
 </manifest>

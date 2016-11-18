@@ -103,8 +103,8 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
         //Firebase f = new Firebase("https://goschedule-50998.firebaseio.com/");
         //f.setValue("Hello World! version 2.0");
 
-        editButton = (Button) findViewById(R.id.editleaveSubmit);
-        cancelButton = (Button) findViewById(R.id.editleaveCancel);
+        //editButton = (Button) findViewById(R.id.editleaveSubmit);
+        //cancelButton = (Button) findViewById(R.id.editleaveCancel);
 
         name = (EditText) findViewById(R.id.editleaveName);
         date = (EditText) findViewById(R.id.editleaveDate);
@@ -205,6 +205,8 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
             @Override
             public void onClick(View v) {
                 editLeave(v);
+
+
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -236,12 +238,20 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
             boolean logStatus = editLogFB(name.getText().toString(),date.getText().toString(),item,backup.getText().toString(),status.getText().toString(),checker.getText().toString());
             //Intent back = new Intent(this, MainActivity.class);
             if (logStatus){
-                Toast.makeText(getApplicationContext(), " Successfully edited leave!", Toast.LENGTH_LONG).show();
                 Intent mainIntent = new Intent(this, MyLeavesActivity.class);
-                this.startActivity(mainIntent);
-                this.finish();
-
+                //returnIntent.putExtra("result", String result);
+                Toast.makeText(getApplicationContext(), " Successfully edited leave!", Toast.LENGTH_LONG).show();
+                //setResult(RESULT_OK, mainIntent);
                 finish();
+                //Intent mainIntent = new Intent(this, MyLeavesActivity.class);
+                this.startActivity(mainIntent);
+
+
+
+
+
+
+
             }
             else {
                 Toast.makeText(getApplicationContext(), "Failed, please try again.", Toast.LENGTH_LONG).show();
@@ -296,6 +306,8 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
                             dateRef.child("dates").child(clubkey).child("type").setValue(type);
                             dateRef.child("dates").child(clubkey).child("backup").setValue(finalBackup);
                             dateRef.child("dates").child(clubkey).child("checker").setValue(updatedchecker);
+
+
                         }
                     }
                     @Override
