@@ -501,6 +501,12 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
 
         }
 
+        if (id == R.id.reports) {
+
+            Intent mainIntent = new Intent(LeaveActivity.this, NewReports.class);
+            LeaveActivity.this.startActivity(mainIntent);
+        }
+
 
         if (id == R.id.reset) {
 

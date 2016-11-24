@@ -346,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
 		Intent intent = new Intent(this, WeekViewActivity.class);
 
 		this.startActivity(intent);
-		this.finish();
+		//this.finish();
     }
 
     if (id == R.id.signout) {

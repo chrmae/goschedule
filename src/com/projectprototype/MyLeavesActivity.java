@@ -177,9 +177,9 @@ public class MyLeavesActivity extends ListActivity implements AdapterView.OnItem
                 intent.putExtra("checker", finalChecker);
                 intent.putExtra("status", finalStatus);
                 intent.putExtra("extraString", extraString);
-                //startActivity(intent);
+                startActivity(intent);
 
-                startActivityForResult(intent, 1);
+                //startActivityForResult(intent, 1);
 
                 seeMyList();
 

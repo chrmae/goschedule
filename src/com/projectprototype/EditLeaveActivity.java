@@ -103,8 +103,8 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
         //Firebase f = new Firebase("https://goschedule-50998.firebaseio.com/");
         //f.setValue("Hello World! version 2.0");
 
-        //editButton = (Button) findViewById(R.id.editleaveSubmit);
-        //cancelButton = (Button) findViewById(R.id.editleaveCancel);
+        editButton = (Button) findViewById(R.id.editleaveSubmit);
+        cancelButton = (Button) findViewById(R.id.editleaveCancel);
 
         name = (EditText) findViewById(R.id.editleaveName);
         date = (EditText) findViewById(R.id.editleaveDate);
@@ -398,6 +398,12 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
 
             this.startActivity(intent);
             this.finish();
+        }
+
+        if (id == R.id.reports) {
+
+            Intent mainIntent = new Intent(EditLeaveActivity.this, NewReports.class);
+            EditLeaveActivity.this.startActivity(mainIntent);
         }
 
         if (id == R.id.search) {

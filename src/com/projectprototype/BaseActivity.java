@@ -215,6 +215,12 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
 
         }
 
+        if (id == R.id.reports) {
+
+            Intent mainIntent = new Intent(this, NewReports.class);
+            this.startActivity(mainIntent);
+        }
+
         if (id == R.id.leaves) {
 
             Intent mainIntent = new Intent(this, ApproveLeaveActivity.class);

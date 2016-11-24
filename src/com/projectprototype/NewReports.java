@@ -133,20 +133,25 @@ public class NewReports extends AppCompatActivity implements AdapterView.OnItemS
         ListView listview = (ListView) findViewById(R.id.listReportEID);
         listview.setAdapter(myAdapter);
 
-        listVLcount = db.getVLcount(year, month);
+        listVLcount = db.getTotalCount(year, month);
         ArrayAdapter VLAdapter = new ArrayAdapter<String>(this, R.layout.reports_viewer, R.id.vl_report, listVLcount);
         ListView VLlistview = (ListView) findViewById(R.id.listReportVL);
         VLlistview.setAdapter(VLAdapter);
 
-        listSLcount = db.getSLcount(year, month);
-        ArrayAdapter SLAdapter = new ArrayAdapter<String>(this, R.layout.reports_viewer, R.id.sl_report, listSLcount);
-        ListView SLlistview = (ListView) findViewById(R.id.listReportSL);
-        SLlistview.setAdapter(SLAdapter);
-
-        listELcount = db.getELcount(year, month);
-        ArrayAdapter ELAdapter = new ArrayAdapter<String>(this, R.layout.reports_viewer, R.id.el_report, listELcount);
-        ListView ELlistview = (ListView) findViewById(R.id.listReportEL);
-        ELlistview.setAdapter(ELAdapter);
+//        listVLcount = db.getVLcount(year, month);
+//        ArrayAdapter VLAdapter = new ArrayAdapter<String>(this, R.layout.reports_viewer, R.id.vl_report, listVLcount);
+//        ListView VLlistview = (ListView) findViewById(R.id.listReportVL);
+//        VLlistview.setAdapter(VLAdapter);
+//
+//        listSLcount = db.getSLcount(year, month);
+//        ArrayAdapter SLAdapter = new ArrayAdapter<String>(this, R.layout.reports_viewer, R.id.sl_report, listSLcount);
+//        ListView SLlistview = (ListView) findViewById(R.id.listReportSL);
+//        SLlistview.setAdapter(SLAdapter);
+//
+//        listELcount = db.getELcount(year, month);
+//        ArrayAdapter ELAdapter = new ArrayAdapter<String>(this, R.layout.reports_viewer, R.id.el_report, listELcount);
+//        ListView ELlistview = (ListView) findViewById(R.id.listReportEL);
+//        ELlistview.setAdapter(ELAdapter);
     }
 
 }
