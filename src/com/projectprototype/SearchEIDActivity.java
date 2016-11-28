@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -70,12 +72,20 @@ public class SearchEIDActivity extends ListActivity implements AdapterView.OnIte
         nameString = EID.getText().toString();
         listLeave = db.getAllInName(nameString);
 
-        //Log.i("Adap", listLeave.get(0));
+        if(nameString.trim().equals("")){
+            Toast.makeText(SearchEIDActivity.this, "Please input EID", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            //Log.i("Adap", listLeave.get(0));
+            lv = (ListView) findViewById(android.R.id.list);
+            myAdapter = new ArrayAdapter<String>(SearchEIDActivity.this, R.layout.search_leave_viewer, R.id.ListMyLeave, listLeave);
+            getListView().setOnItemClickListener(this);
+            lv.setAdapter(myAdapter);
 
-        lv = (ListView) findViewById(android.R.id.list);
-        myAdapter = new ArrayAdapter<String>(SearchEIDActivity.this, R.layout.search_leave_viewer, R.id.ListMyLeave, listLeave);
-        getListView().setOnItemClickListener(this);
-        lv.setAdapter(myAdapter);
+            if(myAdapter.isEmpty()){
+                Toast.makeText(SearchEIDActivity.this, "No Result Found", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     public void cancelEIDView(View view) {

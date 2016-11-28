@@ -21,6 +21,7 @@ public class NewReports extends AppCompatActivity implements AdapterView.OnItemS
     Spinner spinYear;
     Spinner spinMonth;
     DatabaseHelper db;
+    int total;
     List<String> listLeave, listVLcount, listSLcount, listELcount;
     Button backHome;
     String year;
@@ -141,8 +142,8 @@ public class NewReports extends AppCompatActivity implements AdapterView.OnItemS
         ListView VLlistview = (ListView) findViewById(R.id.listReportVL);
         VLlistview.setAdapter(VLAdapter);
 
-
-        txtTotal.setText("Total ");
+        total = db.getTotalLeaves(year, month);
+        txtTotal.setText("Total " + total);
 
 //        listVLcount = db.getVLcount(year, month);
 //        ArrayAdapter VLAdapter = new ArrayAdapter<String>(this, R.layout.reports_viewer, R.id.vl_report, listVLcount);

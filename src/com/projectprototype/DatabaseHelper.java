@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.projectprototype.lib.WeekViewEvent;
 
@@ -142,7 +143,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		return eid;
 	}
 
-	public String getTotalLeaves(String year, String month){
+	public int getTotalLeaves(String year, String month){
+		int total = 0;
+
+		String total_query = "SELECT COUNT(*) FROM FiledLeaves WHERE date LIKE '%"+ year+"' AND date LIKE '"+ month + "%'";
+		cursor = db.rawQuery(total_query, null);
+		if (cursor.moveToFirst()) {
+			do {
+				total = cursor.getInt(0);
+			} while (cursor.moveToNext());
+		}
+
+
+		Log.d("tag12345", "Total: " + total);
+		return total;
+
 
 	}
 

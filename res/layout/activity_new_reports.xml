@@ -146,11 +146,10 @@
         android:id="@+id/total_leaves"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
         android:padding="5dp"
         android:paddingLeft="5dp"
-        android:textSize="10sp"/>
+        android:textSize="20sp"/>
 
 
 
