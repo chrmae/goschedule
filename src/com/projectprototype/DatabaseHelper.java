@@ -142,6 +142,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		return eid;
 	}
 
+	public String getTotalLeaves(String year, String month){
+
+	}
+
 	public List<String> getTotalCount(String year, String month){
 
 		List<String> total = new ArrayList<String>();

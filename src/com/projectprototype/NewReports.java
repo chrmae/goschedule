@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ListView;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class NewReports extends AppCompatActivity implements AdapterView.OnItemS
     Button backHome;
     String year;
     String month;
-
+    TextView txtTotal;
 
 
     @Override
@@ -34,6 +35,8 @@ public class NewReports extends AppCompatActivity implements AdapterView.OnItemS
 
         spinYear = (Spinner) findViewById(R.id.reports_year);
         spinMonth = (Spinner) findViewById(R.id.reports_month);
+
+        txtTotal = (TextView) findViewById(R.id.total_leaves);
 
         spinYear.setOnItemSelectedListener(this);
         spinMonth.setOnItemSelectedListener(this);
@@ -109,7 +112,7 @@ public class NewReports extends AppCompatActivity implements AdapterView.OnItemS
         }
 
 
-        Toast.makeText(NewReports.this, year + " " + month, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(NewReports.this, year + " " + month, Toast.LENGTH_SHORT).show();
 
         showReports(year, month);
 
@@ -137,6 +140,9 @@ public class NewReports extends AppCompatActivity implements AdapterView.OnItemS
         ArrayAdapter VLAdapter = new ArrayAdapter<String>(this, R.layout.reports_viewer, R.id.vl_report, listVLcount);
         ListView VLlistview = (ListView) findViewById(R.id.listReportVL);
         VLlistview.setAdapter(VLAdapter);
+
+
+        txtTotal.setText("Total ");
 
 //        listVLcount = db.getVLcount(year, month);
 //        ArrayAdapter VLAdapter = new ArrayAdapter<String>(this, R.layout.reports_viewer, R.id.vl_report, listVLcount);
