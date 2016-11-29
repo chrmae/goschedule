@@ -39,7 +39,7 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private int alertDialogView;
 
-    List<String> listForApprovalLeave, listApprovedLeave;
+    List<String> listForApprovalLeave, listApprovedLeave, listRejectedLeave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,8 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
 
         Button HomeButton = (Button) findViewById(R.id.faCancel);
         Button Approved = (Button) findViewById(R.id.seeApproved);
-        Button ForApproval = (Button)  findViewById(R.id.seeForApproval);
+        Button ForApproval = (Button) findViewById(R.id.seeForApproval);
+        Button Rejected = (Button) findViewById(R.id.seeRejected);
 
         List<String> listLeave = db.getForApprovalLeaves();
         ImageView approvedLeave = (ImageView) findViewById(R.id.editleave);
@@ -79,7 +80,12 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
             }
         });
 
-
+        Rejected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                seeRejected();
+            }
+        });
         ForApproval.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +98,7 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
     protected void onResume() {
         super.onResume();
         listApprovedLeave = db.getApprovedLeaves();
+        listRejectedLeave = db.getRejectedLeaves();
         listForApprovalLeave = db.getForApprovalLeaves();
     }
 
@@ -111,6 +118,15 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
 
         //lv = (ListView) findViewById(android.R.id.list);
         this.setListAdapter(new ArrayAdapter<String>(this, R.layout.approved_leave_viewer, R.id.ListMyLeave, listApprovedLeave));
+        getListView().setOnItemClickListener(null);
+    }
+
+    private void seeRejected() {
+        //ImageView approvedLeave = (ImageView) findViewById(R.id.editleave);
+        //Log.i("Adap", listLeave.get(0));
+
+        //lv = (ListView) findViewById(android.R.id.list);
+        this.setListAdapter(new ArrayAdapter<String>(this, R.layout.approved_leave_viewer, R.id.ListMyLeave, listRejectedLeave));
         getListView().setOnItemClickListener(null);
     }
 
@@ -172,7 +188,7 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
             }
         });
 
-        alert.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+        /*alert.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 ref.child("dates")
                         .orderByChild("checker")
@@ -199,6 +215,39 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
                             }
                         });
                 Toast.makeText(ApproveLeaveActivity.this, "Successfully deleted leave!", Toast.LENGTH_SHORT).show();
+//                finish();
+//                startActivity(getIntent());
+
+            }
+        });*/
+
+        alert.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                ref.child("dates")
+                        .orderByChild("checker")
+                        .equalTo(finalChecker)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                                    String clubkey = childSnapshot.getKey();
+                                    ref.child("dates").child(clubkey).child("status").setValue("Rejected");
+                                }
+
+                                //TODO: update database
+                                String approvedEntry = listForApprovalLeave.get(position);
+                                listForApprovalLeave.remove(approvedEntry);
+                                listApprovedLeave.add(approvedEntry);
+
+                                // refresh list
+                                seeForApproval();
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                Toast.makeText(ApproveLeaveActivity.this, "Leave has been rejected!", Toast.LENGTH_SHORT).show();
 //                finish();
 //                startActivity(getIntent());
 
@@ -248,7 +297,7 @@ public class ApproveLeaveActivity extends ListActivity implements AdapterView.On
         });
        */
 
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alert.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //So sth here when "cancel" clicked.
             }

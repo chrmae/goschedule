@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 		  String backup;
 		  String status;
 		  String checker;
+		  String comment;
 		  	  
 		  public Resource() {
 		    // empty default constructor, necessary for Firebase to be able to deserialize blog posts
@@ -94,8 +95,11 @@ public class MainActivity extends AppCompatActivity {
 		  public String getStatus() {
 				return status;
 			}
-		public String getChecker() {
+		  public String getChecker() {
 			return checker;
+		}
+		  public String getComment() {
+			return comment;
 		}
 		  
 	}
@@ -110,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 				Resource person = personSnapshot.getValue(Resource.class);
 				nameConverted = person.getName();
 				nameConverted = nameConverted.replace("-",".");
-				db.createLog(nameConverted,person.getDate(),person.getType(), person.getBackup(), person.getStatus(), person.getChecker());
+				db.createLog(nameConverted,person.getDate(),person.getType(), person.getBackup(), person.getStatus(), person.getChecker(), person.getComment());
 
 				updateCalendar();
 //					AsyncTask.execute(calendarUpdater);

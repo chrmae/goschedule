@@ -26,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	private static final String leave_BACKUP = "backup";
 	private static final String leave_STATUS = "status";
 	private static final String leave_CHECKER = "checker";
+	private static final String leave_COMMENT = "comment";
 	private static final String leave_MONTHYEAR = "MMYYYY";
 
 	SQLiteDatabase db;
@@ -41,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-		String CREATE_BOOK_TABLE = "CREATE TABLE FiledLeaves ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "name TEXT, " + "date TEXT, " + "type TEXT, " + "backup TEXT, " + "status TEXT, " + "checker TEXT, " + "MMYYYY TEXT )";
+		String CREATE_BOOK_TABLE = "CREATE TABLE FiledLeaves ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "name TEXT, " + "date TEXT, " + "type TEXT, " + "backup TEXT, " + "status TEXT, " + "checker TEXT, " + "comment TEXT, " + "MMYYYY TEXT )";
 
 		db.execSQL(CREATE_BOOK_TABLE);
 	}
@@ -56,7 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		this.onCreate(db);
 	}
 	
-	public boolean createLog(String name, String date, String type, String backup, String status, String checker) {
+	public boolean createLog(String name, String date, String type, String backup, String status, String checker, String comment) {
 		// get reference of the BookDB database
 		
 		String[] dateArr = date.split("-");
@@ -72,6 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		values.put(leave_BACKUP, backup);
 		values.put(leave_STATUS, status);
 		values.put(leave_CHECKER, checker);
+		values.put(leave_COMMENT, comment);
 		values.put(leave_MONTHYEAR, monthyear);
 
 		// insert book
@@ -262,6 +264,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		String backup;
 		String checker;
 		String status;
+		String comment;
 
 		//Log.i("myApp", date);
 		// select book query
@@ -280,12 +283,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 				backup = backup.replace("-",".");
 				status = cursor.getString(5);
 				checker = cursor.getString(6);
+				comment = cursor.getString(7);
 
 				// Add book to books
 				//Log.i("myApp", Integer.toString(id));
 				//Log.i("myApp", name + " ( " + type + " ) ");
 
-				output.add(checker +"\nDate: " + date + "\nType: " + type + "\nBack up: " + backup + "\nStatus: " + status);
+				output.add(checker +"\nDate: " + date + "\nType: " + type + "\nBack up: " + backup + "\nStatus: " + status + "\nComment: " + comment);
 				//Log.i("myApp", cursor.getString(2));
 				//Log.i("myapp", output.get(id-1));
 			} while (cursor.moveToNext());
@@ -298,7 +302,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	
 	public boolean dateHit(String day, String monthyear){
 		String date;
-		String query = "SELECT  * FROM FiledLeaves WHERE MMYYYY = '" + monthyear + "'";
+		String query = "SELECT * FROM FiledLeaves WHERE MMYYYY = '" + monthyear + "'";
 		cursor = db.rawQuery(query, null);
 
 		boolean result = false;
@@ -446,6 +450,47 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		// select book query
 		//String query = "SELECT  * FROM " + table_LEAVES;
 		String query = "SELECT * FROM FiledLeaves WHERE status = 'Approved' ORDER BY date DESC";
+
+		// get reference of the BookDB database
+		cursor = db.rawQuery(query, null);
+
+		// parse all results
+		if (cursor.moveToFirst()) {
+			do {
+				id = Integer.parseInt(cursor.getString(0));
+				date = cursor.getString(2);
+				type = cursor.getString(3);
+				name = cursor.getString(1);
+				backup = cursor.getString(4);
+				checker = cursor.getString(6);
+
+				// Add book to books
+				//Log.i("myApp", Integer.toString(id));
+				//Log.i("myApp", name + " ( " + type + " ) ");
+				output.add(checker +"\nName: " + name + "\nDate: " + date + "\nType: " + type + "\nBack up: " + backup);
+				//Log.i("myApp", cursor.getString(2));
+				//Log.i("myapp", output.get(id-1));
+			} while (cursor.moveToNext());
+		}
+
+		cursor.close();
+
+		return output;
+	}
+
+	public List<String> getRejectedLeaves() {
+		List<String> output = new ArrayList<String>();
+		Integer id;
+		String date;
+		String type;
+		String name;
+		String backup;
+		String checker;
+
+		//Log.i("myApp", date);
+		// select book query
+		//String query = "SELECT  * FROM " + table_LEAVES;
+		String query = "SELECT * FROM FiledLeaves WHERE status = 'Rejected' ORDER BY date DESC";
 
 		// get reference of the BookDB database
 		cursor = db.rawQuery(query, null);

@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:background="#0097a7"
         android:orientation="horizontal" >
-        
+
         <TextView
             android:id="@+id/title3"
             android:layout_width="wrap_content"
@@ -35,105 +35,125 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
-        
+
     </RelativeLayout>
 
 
-	<LinearLayout
-		android:layout_width="fill_parent"
-		android:layout_height="match_parent"
-		android:orientation="vertical"
-		android:paddingBottom="@dimen/activity_vertical_margin"
-		android:paddingLeft="@dimen/activity_horizontal_margin"
-		android:paddingRight="@dimen/activity_horizontal_margin"
-		android:paddingTop="30dp"
-		android:gravity="center">
-
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-		android:paddingTop="10dp" >
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="30dp"
+        android:gravity="center">
 
-		<EditText
-			android:id="@+id/leaveName"
-			android:layout_width="0dp"
-			android:layout_height="40dp"
-			android:layout_weight="0.75"
-			android:ems="10"
-			android:inputType="text|textPersonName" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp" >
-
-        <EditText
-            android:id="@+id/leaveDate"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="0.75"
-            android:ems="10"
-            android:inputType="date"
-            android:hint="MM / DD / YYYY"
-            android:focusableInTouchMode="false" />
-
-        <EditText
-            android:id="@+id/leaveDate2"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="0.75"
-            android:ems="10"
-            android:inputType="date"
-            android:hint="MM / DD / YYYY"
-            android:focusableInTouchMode="false" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="TYPE:"
-            android:paddingLeft="6dp"
-            android:paddingTop="8dp"
-            android:textColor="@color/grey"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
 
-        <Spinner
-            android:id="@+id/leaveType"
-            android:layout_width="0dp"
+            <EditText
+                android:id="@+id/leaveName"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.75"
+                android:ems="10"
+                android:inputType="text|textPersonName" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.75"
-            android:textColor="@color/white"
-            android:entries="@array/leave_arrays"
-            android:prompt="@string/leave_prompt" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp" >
+            <EditText
+                android:id="@+id/leaveDate"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.75"
+                android:ems="10"
+                android:inputType="date"
+                android:hint="MM / DD / YYYY"
+                android:focusableInTouchMode="false" />
 
-        <EditText
-            android:id="@+id/leaveBackUp"
-            android:layout_width="0dp"
+            <EditText
+                android:id="@+id/leaveDate2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.75"
+                android:ems="10"
+                android:inputType="date"
+                android:hint="MM / DD / YYYY"
+                android:focusableInTouchMode="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="40dp"
-            android:layout_weight="0.75"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="BACK UP RESOURCE" />
-    </LinearLayout>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="TYPE:"
+                android:paddingLeft="6dp"
+                android:paddingTop="8dp"
+                android:textColor="@color/grey"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:id="@+id/leaveType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:textColor="@color/white"
+                android:entries="@array/leave_arrays"
+                android:prompt="@string/leave_prompt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp" >
+
+            <EditText
+                android:id="@+id/leaveBackUp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.75"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="BACK UP RESOURCE" />
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/leaveComment"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.75"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="COMMENT" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"

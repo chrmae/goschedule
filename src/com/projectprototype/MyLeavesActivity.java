@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class MyLeavesActivity extends ListActivity implements AdapterView.OnItemClickListener{
+public class                                                                                                                                                                                                             MyLeavesActivity extends ListActivity implements AdapterView.OnItemClickListener{
 
     Button backHome;
     DatabaseHelper db;
@@ -145,6 +145,11 @@ public class MyLeavesActivity extends ListActivity implements AdapterView.OnItem
         String[] tempstatus = splitstatus.split(d);
         String status = tempstatus[1];
 
+        String f = ": ";
+        String splitcomment = finalLeave[5];
+        String[] tempcomment = splitcomment.split(d);
+        String comment = tempcomment[1];
+
         String checker = finalLeave[0];
 
 
@@ -159,6 +164,7 @@ public class MyLeavesActivity extends ListActivity implements AdapterView.OnItem
         final String finalBackup = backup;
         final String finalChecker = checker;
         final String finalStatus = status;
+        final String finalComment = comment;
         final Context context = this;
 
 
@@ -176,6 +182,7 @@ public class MyLeavesActivity extends ListActivity implements AdapterView.OnItem
                 intent.putExtra("backup", finalBackup);
                 intent.putExtra("checker", finalChecker);
                 intent.putExtra("status", finalStatus);
+                intent.putExtra("comment", finalComment);
                 intent.putExtra("extraString", extraString);
                 startActivity(intent);
 

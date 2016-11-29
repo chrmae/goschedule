@@ -55,6 +55,7 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
     EditText backup;
     EditText status;
     TextView checker;
+    EditText comment;
     //String checker;
     Spinner type;
     String item;
@@ -112,6 +113,7 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
         backup = (EditText) findViewById(R.id.editleaveBackUp);
         status = (EditText) findViewById(R.id.editleaveStatus);
         checker = (TextView) findViewById(R.id.editleaveChecker);
+        comment = (EditText) findViewById(R.id.editleaveComment);
         listener = name.getKeyListener();
 
         Intent intentDateReceived = getIntent();
@@ -121,6 +123,7 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
         String neweditBackup = intentDateReceived.getExtras().getString("backup");
         String neweditStatus = intentDateReceived.getExtras().getString("status");
         String neweditChecker = intentDateReceived.getExtras().getString("checker");
+        String neweditComment = intentDateReceived.getExtras().getString("comment");
 
         status.setVisibility(View.GONE);
 
@@ -201,6 +204,8 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
         backup.setText(neweditBackup);
         checker.setVisibility(View.GONE);
         checker.setText(neweditChecker);
+        comment.setText(neweditComment);
+
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,8 +239,8 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
     public void editLeave(View view) {
 
 
-        if (name.getText().toString().length() > 0 && date.getText().toString().length() > 0 && backup.getText().toString().length() > 0) {
-            boolean logStatus = editLogFB(name.getText().toString(),date.getText().toString(),item,backup.getText().toString(),status.getText().toString(),checker.getText().toString());
+        if (name.getText().toString().length() > 0 && date.getText().toString().length() > 0) {
+            boolean logStatus = editLogFB(name.getText().toString(),date.getText().toString(),item,backup.getText().toString(),status.getText().toString(),checker.getText().toString(),comment.getText().toString());
             //Intent back = new Intent(this, MainActivity.class);
             if (logStatus){
                 Intent mainIntent = new Intent(this, MyLeavesActivity.class);
@@ -266,14 +271,13 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
         //Intent intent1 = new Intent(this, MainActivity.class);
         //intent1.putExtra("message", "Canceled.");
         //startActivity(intent1);
-        Intent mainIntent = new Intent(this, MyLeavesActivity.class);
-        this.startActivity(mainIntent);
+
         this.finish();
     }
 
 
 
-    public boolean editLogFB(String name, String date, final String type, String backup, String status, final String checker) {
+    public boolean editLogFB(String name, String date, final String type, String backup, String status, final String checker, final String comment) {
 
 
         date = date.replace("-","/");
@@ -306,6 +310,7 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
                             dateRef.child("dates").child(clubkey).child("type").setValue(type);
                             dateRef.child("dates").child(clubkey).child("backup").setValue(finalBackup);
                             dateRef.child("dates").child(clubkey).child("checker").setValue(updatedchecker);
+                            dateRef.child("dates").child(clubkey).child("comment").setValue(comment);
 
 
                         }

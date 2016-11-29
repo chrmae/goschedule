@@ -57,6 +57,7 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
     EditText backup;
     EditText status;
     String checker;
+    EditText comment;
     Spinner type;
     String item;
     boolean adminCheck;
@@ -138,6 +139,7 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
         type = (Spinner) findViewById(R.id.leaveType);
         backup = (EditText) findViewById(R.id.leaveBackUp);
         status = (EditText) findViewById(R.id.leaveStatus);
+        comment = (EditText) findViewById(R.id.leaveComment);
 
         status.setVisibility(View.GONE);
 
@@ -251,39 +253,45 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
             int date2Result = dateFirst.compareTo(dateSecond);
 
 
-            if (name.getText().toString().length() > 0 && date.getText().toString().length() > 0 && backup.getText().toString().length() > 0) {
+            if (name.getText().toString().length() > 0 && date.getText().toString().length() > 0) {
 
 
                 if ((dateFirst.after(today) || sdf2.format(dateFirst).equals(sdf2.format(today))) && (dateSecond.after(dateFirst) || sdf2.format(dateSecond).equals(sdf2.format(dateFirst)))) {
 
-                    boolean logStatus = false;
-
-                    Calendar c = Calendar.getInstance();
-                    c.setTime(dateFirst);
-                    int dateDiff = dateSecond.getDate() - dateFirst.getDate() + 1;
-                    for(int i = 1; i <= dateDiff; i++){
-
-                        Log.d("daterange", "DateFirst:" + dateFirst );
-
-                        //Toast.makeText(getApplicationContext(), "Date:" + dateFirst + " " + sdf2.format(dateFirst), Toast.LENGTH_SHORT).show();
-                        logStatus = createLogFB(name.getText().toString(), sdf2.format(dateFirst), item, backup.getText().toString(), status.getText().toString(), checker);
-                        //Intent back = new Intent(this, MainActivity.class);
-                        c.add(Calendar.DATE, 1);
-                        dateFirst = c.getTime();
 
 
-                    }
+                        boolean logStatus = false;
 
-                    if (logStatus) {
-                        Toast.makeText(getApplicationContext(), "Added Leave!", Toast.LENGTH_LONG).show();
+                        Calendar c = Calendar.getInstance();
+                        c.setTime(dateFirst);
+                        int dateDiff = dateSecond.getDate() - dateFirst.getDate() + 1;
+                        for (int i = 1; i <= dateDiff; i++) {
 
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Failed, please try again.", Toast.LENGTH_LONG).show();
-                    }
+                            Log.d("daterange", "DateFirst:" + dateFirst);
+
+
+
+                            //Toast.makeText(getApplicationContext(), "Date:" + dateFirst + " " + sdf2.format(dateFirst), Toast.LENGTH_SHORT).show();
+                            logStatus = createLogFB(name.getText().toString(), sdf2.format(dateFirst), item, backup.getText().toString(), status.getText().toString(), checker, comment.getText().toString());
+                            //Intent back = new Intent(this, MainActivity.class);
+                            c.add(Calendar.DATE, 1);
+                            dateFirst = c.getTime();
+
+
+                        }
+
+                        if (logStatus) {
+                            Toast.makeText(getApplicationContext(), "Added Leave!", Toast.LENGTH_LONG).show();
+
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Failed, please try again.", Toast.LENGTH_LONG).show();
+                        }
+
                 } else {
                     Toast.makeText(getApplicationContext(), "End date is invalid.", Toast.LENGTH_LONG).show();
                 }
+
             } else {
                 Toast.makeText(getApplicationContext(), "Invalid date. Choose date today or later." + dateFirst + dateSecond + today, Toast.LENGTH_LONG).show();
             }
@@ -310,7 +318,7 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
     }
 
 
-    public boolean createLogFB(String name, String date, String type, String backup, String status, String checker) {
+    public boolean createLogFB(String name, String date, String type, String backup, String status, String checker, String comment) {
 
 
         String[] startDate = date.split("/");
@@ -358,6 +366,7 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
         dataput.put("backup", backup);
         dataput.put("status", status);
         dataput.put("checker", checker);
+        dataput.put("comment", comment);
         dateRef.push().setValue(dataput);
 
         return true;

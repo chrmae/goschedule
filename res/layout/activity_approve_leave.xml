@@ -44,7 +44,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-
+        <Button
+            android:id="@+id/seeForApproval"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="#0097a7"
+            android:onClick="seeForApproval"
+            android:text="FOR APPROVAL"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/seeApproved"
@@ -59,9 +70,8 @@
             android:text="APPROVED"
             android:textColor="@color/white" />
 
-
         <Button
-            android:id="@+id/seeForApproval"
+            android:id="@+id/seeRejected"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
@@ -69,9 +79,10 @@
             android:layout_marginRight="2dp"
             android:layout_marginBottom="2dp"
             android:background="#0097a7"
-            android:onClick="seeForApproval"
-            android:text="FOR APPROVAL"
+            android:onClick="seeRejected"
+            android:text="REJECTED"
             android:textColor="@color/white" />
+
 
 
 
