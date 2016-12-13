@@ -260,15 +260,18 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
 
 
 
-                        boolean logStatus = false;
+                    boolean logStatus = false;
 
-                        Calendar c = Calendar.getInstance();
-                        c.setTime(dateFirst);
-                        int dateDiff = dateSecond.getDate() - dateFirst.getDate() + 1;
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(dateFirst);
+                    int dateDiff = dateSecond.getDate() - dateFirst.getDate() + 1;
+
+                    if (comment.getText().equals(null)) {
+                        comment.setText("None");
+                    }
                         for (int i = 1; i <= dateDiff; i++) {
 
                             Log.d("daterange", "DateFirst:" + dateFirst);
-
 
 
                             //Toast.makeText(getApplicationContext(), "Date:" + dateFirst + " " + sdf2.format(dateFirst), Toast.LENGTH_SHORT).show();
@@ -276,8 +279,6 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
                             //Intent back = new Intent(this, MainActivity.class);
                             c.add(Calendar.DATE, 1);
                             dateFirst = c.getTime();
-
-
                         }
 
                         if (logStatus) {

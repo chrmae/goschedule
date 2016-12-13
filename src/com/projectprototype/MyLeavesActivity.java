@@ -115,10 +115,10 @@ public class                                                                    
         FirebaseUser user = mAuth.getCurrentUser();
         final DatabaseReference ref = database.getReference();
 
-
         String toEdit = (String) parent.getItemAtPosition(position);
         //Toast.makeText(ApproveLeaveActivity.this, toEdit, Toast.LENGTH_SHORT).show();
         String delim = "[\n]";
+
         String[] finalLeave = toEdit.split(delim);
 
         String c = "[@]";
@@ -142,13 +142,13 @@ public class                                                                    
 
         String e = ": ";
         String splitstatus = finalLeave[4];
-        String[] tempstatus = splitstatus.split(d);
+        String[] tempstatus = splitstatus.split(e);
         String status = tempstatus[1];
 
         String f = ": ";
         String splitcomment = finalLeave[5];
-        String[] tempcomment = splitcomment.split(d);
-        String comment = tempcomment[1];
+        //String[] tempcomment = splitcomment.split(f);
+        //String comment = tempcomment[1];
 
         String checker = finalLeave[0];
 
@@ -164,7 +164,7 @@ public class                                                                    
         final String finalBackup = backup;
         final String finalChecker = checker;
         final String finalStatus = status;
-        final String finalComment = comment;
+        final String finalComment = splitcomment;
         final Context context = this;
 
 
@@ -173,6 +173,10 @@ public class                                                                    
         alert.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 Intent intent = new Intent(MyLeavesActivity.this, EditLeaveActivity.class);
+
+                /*if (finalComment == null) {
+
+                }*/
 
 
                 //Toast.makeText(ApproveLeaveActivity.this, "Successfully approved leave!", Toast.LENGTH_SHORT).show();
@@ -369,20 +373,6 @@ public class                                                                    
 
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-
-            if(resultCode == RESULT_OK){
-                //Update List
-                //updateData();
-                myAdapter.notifyDataSetChanged();
-            }
-            if (resultCode == RESULT_CANCELED) {
-                //Do nothing?
-            }
-        }
-    }
 
     protected void onResume()
     {

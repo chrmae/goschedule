@@ -126,13 +126,16 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
         String neweditComment = intentDateReceived.getExtras().getString("comment");
 
         status.setVisibility(View.GONE);
+        status.setText(neweditStatus);
+
+
 
         String c = "[@]";
         final String[] nameEID = user.getEmail().split(c);
 
-        status.setText(neweditStatus);
-        name.setText(nameEID[0]);
 
+
+        name.setText(nameEID[0]);
 
         if (user != null) {
             if (adminCheck) {
@@ -194,17 +197,34 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
         });
 
         String compareValue = neweditType;
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.leave_arrays, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         type.setAdapter(adapter);
+
         if (!compareValue.equals(null)) {
             int spinnerPosition = adapter.getPosition(compareValue);
             type.setSelection(spinnerPosition);
         }
         backup.setText(neweditBackup);
+        
+
         checker.setVisibility(View.GONE);
         checker.setText(neweditChecker);
         comment.setText(neweditComment);
+
+        if (comment.getText().equals(null)){
+
+
+        }
+
+        if (status.getText().toString().equals("Approved") || status.getText().toString().equals("Rejected")){
+            date.setKeyListener(null);
+            //type.setOnKeyListener(null);
+            type.setOnKeyListener(null);
+            backup.setOnKeyListener(null);
+            comment.setOnKeyListener(null);
+        }
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,6 +234,7 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
 
             }
         });
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -251,18 +272,13 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
                 //Intent mainIntent = new Intent(this, MyLeavesActivity.class);
                 this.startActivity(mainIntent);
 
-
-
-
-
-
-
             }
             else {
                 Toast.makeText(getApplicationContext(), "Failed, please try again.", Toast.LENGTH_LONG).show();
 
             }
         }
+
 
 
     }

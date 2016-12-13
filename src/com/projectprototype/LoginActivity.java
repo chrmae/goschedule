@@ -134,11 +134,11 @@ public class LoginActivity extends Activity{
 							//Log.w(TAG, "signInWithEmail:failed", task.getException());
 							Toast.makeText(LoginActivity.this, "Log in Failed!", Toast.LENGTH_SHORT).show();
 						}else {
-
+							Toast.makeText(LoginActivity.this, "Successfully logged in!", Toast.LENGTH_SHORT).show();
 						}
 
 						progressDialog.cancel();
-						Toast.makeText(LoginActivity.this, "Successfully logged in!", Toast.LENGTH_SHORT).show();
+
 						// ...
 					}
 				});
