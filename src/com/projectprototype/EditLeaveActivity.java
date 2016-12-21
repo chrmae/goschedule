@@ -207,7 +207,7 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
             type.setSelection(spinnerPosition);
         }
         backup.setText(neweditBackup);
-        
+
 
         checker.setVisibility(View.GONE);
         checker.setText(neweditChecker);
