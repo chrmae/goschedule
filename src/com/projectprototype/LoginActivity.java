@@ -137,10 +137,7 @@ public class LoginActivity extends Activity{
 							Toast.makeText(LoginActivity.this, "Successfully logged in!", Toast.LENGTH_SHORT).show();
 						}
 						progressDialog.cancel();
-<<<<<<< HEAD
 
-=======
->>>>>>> 162fe6febbd008a5ce2840b462561848a86faae5
 						// ...
 					}
 				});

@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.text.method.KeyListener;
 import android.util.Log;
 import android.util.MutableInt;
@@ -128,6 +129,10 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
         status.setVisibility(View.GONE);
         status.setText(neweditStatus);
 
+        if(status.getText().equals("Approved")){
+
+        }
+
 
 
         String c = "[@]";
@@ -164,9 +169,13 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
                         }
 
                         if (adminCheck) {
-                            name.setKeyListener(listener);
+                            name.setEnabled(true);
+                            name.setInputType(InputType.TYPE_CLASS_TEXT);
+                            name.setFocusable(true);
                         } else {
-                            name.setKeyListener(null);
+                            name.setEnabled(false);
+                            name.setInputType(InputType.TYPE_NULL);
+                            name.setFocusable(false);
                         }
                         // do your stuff here with value
                     }
