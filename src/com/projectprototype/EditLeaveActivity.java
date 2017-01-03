@@ -129,8 +129,28 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
         status.setVisibility(View.GONE);
         status.setText(neweditStatus);
 
-        if(status.getText().equals("Approved")){
+        if (neweditStatus.equals("Approved")){
+            date.setEnabled(false);
+            date.setInputType(InputType.TYPE_NULL);
+            date.setFocusable(false);
 
+            type.setEnabled(false);
+            type.setFocusable(false);
+        }
+
+        if (neweditStatus.equals("Rejected")){
+            date.setEnabled(false);
+            date.setInputType(InputType.TYPE_NULL);
+            date.setFocusable(false);
+
+            type.setEnabled(false);
+            type.setFocusable(false);
+
+            backup.setEnabled(false);
+            backup.setFocusable(false);
+
+            comment.setEnabled(false);
+            comment.setFocusable(false);
         }
 
 
@@ -194,16 +214,17 @@ public class EditLeaveActivity extends AppCompatActivity implements OnItemSelect
         final Calendar myCalendar = Calendar.getInstance();
 
         date.setText(neweditDate);
-        date.setOnClickListener(new OnClickListener() {
+            date.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(EditLeaveActivity.this, date2, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    new DatePickerDialog(EditLeaveActivity.this, date2, myCalendar
+                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            });
+
 
         String compareValue = neweditType;
 
