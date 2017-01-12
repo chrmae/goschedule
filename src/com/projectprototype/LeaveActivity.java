@@ -287,7 +287,9 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
                         if (logStatus) {
                             String email = approver.getText().toString().trim() + "@accenture.com";
                             String subject = "Leave Notification".trim();
-                            String message = "The resource has filed a leave. Open the app to approve or reject".trim();
+                            String message = ("Good day, \n\n"  +
+                                    name.getText() + " filed a leave from " + date.getText() + " to " + date2.getText() + ".\n\n" + "Kindly open your goschedule app to approve or reject this leave.\n\n"
+                            + "Regards,\n" + "DevOps Leave Tracker").trim();
 
                             SendMail sm = new SendMail(this, email, subject, message);
                             sm.execute();
