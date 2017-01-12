@@ -135,7 +135,6 @@
                 android:hint="BACK UP RESOURCE" />
 
 
-
         </LinearLayout>
 
 
@@ -168,6 +167,21 @@
                 android:layout_weight="0.75"
                 android:text="For Approval"
                 android:ems="10" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/approver"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.75"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="APPROVER" />
+
         </LinearLayout>
 
 

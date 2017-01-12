@@ -26,6 +26,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -56,6 +57,7 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
     EditText date2;
     EditText backup;
     EditText status;
+    EditText approver;
     String checker;
     EditText comment;
     Spinner type;
@@ -140,6 +142,7 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
         backup = (EditText) findViewById(R.id.leaveBackUp);
         status = (EditText) findViewById(R.id.leaveStatus);
         comment = (EditText) findViewById(R.id.leaveComment);
+        approver = (EditText) findViewById(R.id.approver);
 
         status.setVisibility(View.GONE);
 
@@ -282,9 +285,17 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
                         }
 
                         if (logStatus) {
-                            Toast.makeText(getApplicationContext(), "Added Leave!", Toast.LENGTH_LONG).show();
+                            String email = approver.getText().toString().trim() + "@accenture.com";
+                            String subject = "Leave Notification".trim();
+                            String message = "The resource has filed a leave. Open the app to approve or reject".trim();
 
-                            finish();
+                            SendMail sm = new SendMail(this, email, subject, message);
+                            sm.execute();
+
+                            Toast.makeText(getApplicationContext(), "Added Leave!", Toast.LENGTH_LONG).show();
+                            //finish();
+
+
                         } else {
                             Toast.makeText(getApplicationContext(), "Failed, please try again.", Toast.LENGTH_LONG).show();
                         }
@@ -369,6 +380,7 @@ public class LeaveActivity extends AppCompatActivity implements OnItemSelectedLi
         dataput.put("checker", checker);
         dataput.put("comment", comment);
         dateRef.push().setValue(dataput);
+
 
         return true;
     }
